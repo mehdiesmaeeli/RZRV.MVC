@@ -16,6 +16,9 @@ namespace RZRV.APP.ViewModel
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
 
+        [Required]
+        public string Role { get; set; }
+
     }
 
 }

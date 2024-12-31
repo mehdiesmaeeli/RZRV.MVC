@@ -4,6 +4,7 @@ using RZRV.APP.Data;
 using Microsoft.AspNetCore.Identity.UI;
 using RZRV.APP.Hubs;
 using RZRV.APP.Models;
+using RZRV.APP.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,7 +33,9 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 builder.Services.AddSignalR(); // Add this line
+builder.Services.AddScoped<RoleService>();
 
 var app = builder.Build();
 
@@ -54,6 +57,10 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "areas",
     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+   name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 app.MapHub<ChatHub>("/chatHub"); // Add this line
 

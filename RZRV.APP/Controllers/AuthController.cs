@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using RZRV.APP.AppConfig;
 using RZRV.APP.Models;
+using RZRV.APP.Services;
 using RZRV.APP.ViewModel;
 
 namespace RZRV.APP.Controllers
@@ -9,11 +11,13 @@ namespace RZRV.APP.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly RoleService _roleService;
 
-        public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleService roleService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleService = roleService;
         }
 
         [HttpGet]
@@ -40,6 +44,12 @@ namespace RZRV.APP.Controllers
         [HttpGet]
         public IActionResult Register()
         {
+            ViewBag.Roles = new List<string>
+            {
+                SystemRoles.Admin,
+                SystemRoles.Store,
+                SystemRoles.Provider
+            };
             return View();
         }
 
@@ -55,14 +65,31 @@ namespace RZRV.APP.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, model.Role);
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    switch (model.Role)
+                    {
+                        case SystemRoles.Admin:
+                            return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
+                        case SystemRoles.Store:
+                            return RedirectToAction("Index", "Dashboard", new { area = "Store" });
+                        case SystemRoles.Provider:
+                            return RedirectToAction("Index", "Dashboard", new { area = "Provider" });
+                        default:
+                            return RedirectToAction("Index", "Home");
+                    }
                 }
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
+            ViewBag.Roles = new List<string>
+            {
+                SystemRoles.Admin,
+                SystemRoles.Store,
+                SystemRoles.Provider
+            };
             return View(model);
         }
 
