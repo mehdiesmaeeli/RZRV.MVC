@@ -4,6 +4,5 @@ namespace RZRV.APP.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public string Phone { get; set; }
     }
 }

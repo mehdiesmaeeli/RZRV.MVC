@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Identity.UI;
 using RZRV.APP.Hubs;
 using RZRV.APP.Models;
 using RZRV.APP.Services;
+using RZRV.APP.AppConfig;
+using AspNetCoreRateLimit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,8 +34,23 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = "/Auth/AccessDenied";
 });
 
+builder.Services.AddTransient<GlobalExceptionHandler>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
+// Add memory cache
+builder.Services.AddMemoryCache();
+
+// Load rate limit configuration
+builder.Services.Configure<IpRateLimitOptions>(builder.Configuration.GetSection("IpRateLimiting"));
+builder.Services.Configure<IpRateLimitPolicies>(builder.Configuration.GetSection("IpRateLimitPolicies"));
+
+// Inject counter and rules stores
+builder.Services.AddInMemoryRateLimiting();
+
+// Add rate limiting services
+builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+
 builder.Services.AddSignalR(); // Add this line
 builder.Services.AddScoped<RoleService>();
 
@@ -48,12 +65,19 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseIpRateLimiting();
 app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Add("X-Frame-Options", "DENY");
+    context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+    context.Response.Headers.Add("X-XSS-Protection", "1; mode=block");
+    await next();
+});
+app.UseMiddleware<GlobalExceptionHandler>();
 app.MapControllerRoute(
     name: "areas",
     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");

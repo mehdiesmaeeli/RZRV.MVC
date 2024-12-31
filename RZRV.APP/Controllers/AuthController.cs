@@ -34,7 +34,21 @@ namespace RZRV.APP.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Phone, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    var user = await _userManager.FindByNameAsync(model.Phone);
+                    var roles = await _userManager.GetRolesAsync(user);
+                    var userRole = roles.FirstOrDefault();
+
+                    switch (userRole)
+                    {
+                        case "Admin":
+                            return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
+                        case "Store":
+                            return RedirectToAction("Index", "Dashboard", new { area = "Store" });
+                        case "Provider":
+                            return RedirectToAction("Index", "Dashboard", new { area = "Provider" });
+                        default:
+                            return RedirectToAction("Index", "Home");
+                    }
                 }
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             }
@@ -60,7 +74,8 @@ namespace RZRV.APP.Controllers
             {
                 var user = new ApplicationUser
                 {
-                    UserName = model.Phone
+                    UserName = model.Phone,
+                    PhoneNumber = model.Phone
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -92,6 +107,13 @@ namespace RZRV.APP.Controllers
             };
             return View(model);
         }
+
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
 
         public async Task<IActionResult> Logout()
         {
