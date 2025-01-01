@@ -1,0 +1,35 @@
+﻿@using RZRV.APP.ViewModel
+@model UserProfileViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="profile-image">
+                @if (!string.IsNullOrEmpty(Model.AvatarPath))
+                {
+                    <img src="@Url.Content($"~/uploads/avatars/{Model.AvatarPath}")" class="img-fluid rounded-circle" />
+                }
+                else
+                {
+                    <img src="~/images/default-avatar.png" class="img-fluid rounded-circle" />
+                }
+            </div>
+
+            <form asp-action="UploadAvatar" enctype="multipart/form-data" method="post">
+                <div class="form-group">
+                    <label>Change Profile Picture</label>
+                    <input type="file" name="avatar" class="form-control" accept=".jpg,.jpeg,.png" />
+                </div>
+                <button type="submit" class="btn btn-primary">Upload</button>
+            </form>
+        </div>
+
+        <div class="col-md-8">
+            <h2>Profile Information</h2>
+            <div class="form-group">
+                <label>Phone</label>
+                <input asp-for="Phone" class="form-control" readonly />
+            </div>
+        </div>
+    </div>
+</div>

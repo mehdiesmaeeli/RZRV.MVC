@@ -27,6 +27,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     })
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
+builder.Services.AddScoped<IFileUploadService, FileUploadService>();
 
 // Configure cookie settings
 builder.Services.ConfigureApplicationCookie(options =>
@@ -72,7 +73,7 @@ builder.Services.AddAntiforgery(options =>
     options.HeaderName = "X-XSRF-TOKEN";
     options.Cookie.Name = "XSRF-TOKEN";
     options.Cookie.HttpOnly = true;
-    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.None;
 });
 
 builder.Services.AddCors(options =>
@@ -95,6 +96,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddTransient<GlobalExceptionHandler>();
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
