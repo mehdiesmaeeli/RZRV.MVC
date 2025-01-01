@@ -7,6 +7,7 @@ using RZRV.APP.ViewModel;
 
 namespace RZRV.APP.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class AuthController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
