@@ -23,12 +23,13 @@ namespace RZRV.APP.Hubs
                 SenderId = senderId,
                 ReceiverId = receiverId,
                 Content = message,
-                CreatedAt = DateTime.UtcNow,
                 Type = MessageType.Direct
             };
 
             _context.ChatMessages.Add(msg);
             await _context.SaveChangesAsync();
+
+            msg.CreatedAt = DateTime.UtcNow.ToLocalTime();
             // Send to receiver
             await Clients.User(receiverId).SendAsync("ReceiveMessage", msg);
 

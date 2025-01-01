@@ -34,6 +34,13 @@ namespace RZRV.APP.Controllers
                     (m.SenderId == currentUserId && m.ReceiverId == userId) ||
                     (m.SenderId == userId && m.ReceiverId == currentUserId))
                 .OrderBy(m => m.CreatedAt)
+                .Select(m => new
+                {
+                    m.Id,
+                    m.SenderId,
+                    m.Content,
+                    CreatedAt = m.CreatedAt.ToLocalTime()
+                })
                 .ToListAsync();
 
             return Json(messages);

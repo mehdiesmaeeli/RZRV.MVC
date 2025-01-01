@@ -66,25 +66,16 @@
 
         function formatDateTime(dateString) {
             const d = new Date(dateString);
-            const dateUtc = new Date(d.getTime() + (d.getTimezoneOffset() * 60000));
             const options = {
                 hour: '2-digit',
                 minute: '2-digit',
                 hour12: false
             };
-            const offset = '+3.5';
-            const localDate = Date(dateUtc + (3600000 * offset));
-            return localDate.toLocaleString('fa-IR', options);
+            return d.toLocaleString('fa-IR', options);
         }
 
         connection.on("ReceiveMessage", (message) => {
-            const isSender = message.senderId === currentUserId;
-            alert(message.createdAt);
-            appendMessage({
-                content: message.content,
-                timestamp: message.createdAt,
-                isSender: isSender
-            });
+            appendMessage(message);
         });
 
         function selectUser(userId, userName) {
