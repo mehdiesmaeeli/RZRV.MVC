@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
@@ -28,6 +28,7 @@
 		<Folder Include="Areas\Store\Data\" />
 		<Folder Include="Areas\Store\Models\" />
 		<Folder Include="DB-Q\" />
+		<Folder Include="Migrations\" />
 	</ItemGroup>
 
 </Project>

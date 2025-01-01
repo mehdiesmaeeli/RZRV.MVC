@@ -30,6 +30,32 @@ namespace RZRV.APP.Controllers
             return View(viewModel);
         }
 
+        [HttpGet]
+        public IActionResult GetAvatar(string fileName)
+        {
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "avatars", fileName);
+
+            if (!System.IO.File.Exists(path))
+            {
+                return File("~/images/default-avatar.png", "image/png");
+            }
+
+            var mime = GetMimeType(path);
+            var fileStream = System.IO.File.OpenRead(path);
+            return File(fileStream, mime);
+        }
+
+        private string GetMimeType(string fileName)
+        {
+            var extension = Path.GetExtension(fileName).ToLowerInvariant();
+            return extension switch
+            {
+                ".jpg" or ".jpeg" => "image/jpeg",
+                ".png" => "image/png",
+                _ => "application/octet-stream"
+            };
+        }
+
         [HttpPost]
         public async Task<IActionResult> UploadAvatar(IFormFile avatar)
         {
@@ -47,7 +73,7 @@ namespace RZRV.APP.Controllers
 
                 await _userManager.UpdateAsync(user);
 
-                return Ok(new { success = true, avatarUrl = $"/uploads/avatars/{fileName}" });
+                return Ok(new { success = true, avatarUrl = Url.Action("GetAvatar", "User", new { fileName = fileName }) });
             }
             catch (Exception ex)
             {

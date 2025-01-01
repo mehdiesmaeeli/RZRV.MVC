@@ -9,6 +9,8 @@ using RZRV.APP.AppConfig;
 using AspNetCoreRateLimit;
 using Microsoft.AspNetCore.ResponseCompression;
 using System.IO.Compression;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -94,7 +96,19 @@ builder.Services.AddCors(options =>
               .AllowAnyHeader();
     });
 });
+var defaultCulture = new CultureInfo("fa-IR");
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    var supportedCultures = new[]
+    {
+        new CultureInfo("en-US"),
+        new CultureInfo("fa-IR")
+    };
 
+    options.DefaultRequestCulture = new RequestCulture(defaultCulture);
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+});
 builder.Services.AddTransient<GlobalExceptionHandler>();
 
 builder.Services.AddControllersWithViews();
@@ -117,6 +131,12 @@ builder.Services.AddSignalR(); // Add this line
 builder.Services.AddScoped<RoleService>();
 
 var app = builder.Build();
+
+
+// Set default culture for the application
+CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
+CultureInfo.DefaultThreadCurrentUICulture = defaultCulture;
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -146,7 +166,7 @@ app.UseMiddleware<GlobalExceptionHandler>();
 app.MapControllerRoute(
     name: "areas",
     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-
+app.UseRequestLocalization();
 app.MapControllerRoute(
    name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

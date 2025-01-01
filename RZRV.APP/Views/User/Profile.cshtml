@@ -4,24 +4,10 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <div class="profile-image">
-                @if (!string.IsNullOrEmpty(Model.AvatarPath))
-                {
-                    <img src="@Url.Content($"~/uploads/avatars/{Model.AvatarPath}")" class="img-fluid rounded-circle" />
-                }
-                else
-                {
-                    <img src="~/images/default-avatar.png" class="img-fluid rounded-circle" />
-                }
+            <div class="avatar-upload">
+                <img id="userAvatar" src="@Url.Action("GetAvatar", "User", new { fileName = Model.AvatarPath })" />
+                <input type="file" id="avatarInput" onchange="uploadAvatar()" accept="image/*" />
             </div>
-
-            <form asp-action="UploadAvatar" enctype="multipart/form-data" method="post">
-                <div class="form-group">
-                    <label>Change Profile Picture</label>
-                    <input type="file" name="avatar" class="form-control" accept=".jpg,.jpeg,.png" />
-                </div>
-                <button type="submit" class="btn btn-primary">Upload</button>
-            </form>
         </div>
 
         <div class="col-md-8">
@@ -33,3 +19,22 @@
         </div>
     </div>
 </div>
+<script>
+    function uploadAvatar() {
+        const fileInput = document.getElementById('avatarInput');
+        const formData = new FormData();
+        formData.append('avatar', fileInput.files[0]);
+
+        fetch('/User/UploadAvatar', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('userAvatar').src = data.avatarUrl;
+                    // Show success message
+                }
+            });
+    }
+</script>

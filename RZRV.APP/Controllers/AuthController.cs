@@ -76,7 +76,8 @@ namespace RZRV.APP.Controllers
                 var user = new ApplicationUser
                 {
                     UserName = model.Phone,
-                    PhoneNumber = model.Phone
+                    PhoneNumber = model.Phone,
+                    AvatarPath = "default-avatar.png"
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
