@@ -22,7 +22,6 @@ namespace RZRV.APP.Controllers
         public async Task<IActionResult> Index()
         {
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var currentCulture = CultureInfo.CurrentCulture.Name;
             var users = await _userManager.Users.Where(x => x.Id != currentUserId).ToListAsync();
             return View(new ChatViewModel { Users = users, CurrentUserId = currentUserId });
         }

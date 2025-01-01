@@ -101,8 +101,8 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
     var supportedCultures = new[]
     {
-        new CultureInfo("en-US"),
-        new CultureInfo("fa-IR")
+        new CultureInfo("fa-IR"),
+        new CultureInfo("en-US")
     };
 
     options.DefaultRequestCulture = new RequestCulture(defaultCulture);
