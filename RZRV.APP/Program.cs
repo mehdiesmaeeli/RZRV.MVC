@@ -112,7 +112,7 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 builder.Services.AddTransient<GlobalExceptionHandler>();
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
 // Add memory cache
 builder.Services.AddMemoryCache();
