@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.ResponseCompression;
 using System.IO.Compression;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
+using RZRV.APP.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +30,10 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     })
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
+
+
 builder.Services.AddScoped<IFileUploadService, FileUploadService>();
+builder.Services.AddSingleton<ICacheService, CacheService>();
 
 // Configure cookie settings
 builder.Services.ConfigureApplicationCookie(options =>
@@ -126,7 +130,7 @@ builder.Services.AddInMemoryRateLimiting();
 
 // Add rate limiting services
 builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
-
+builder.Services.AddMemoryCache();
 builder.Services.AddSignalR(); // Add this line
 builder.Services.AddScoped<RoleService>();
 
