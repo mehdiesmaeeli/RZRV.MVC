@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
@@ -7,11 +7,15 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Include="t4\TextTemplate.txt">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>TextTemplate.tt</DependentUpon>
-	  </Compile>
+		<Content Remove="Views\ChatMessages\index.cshtml" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="t4\TextTemplate.txt">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>TextTemplate.tt</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -40,34 +44,35 @@
 		<Folder Include="Areas\Store\Models\" />
 		<Folder Include="DB-Q\" />
 		<Folder Include="Migrations\" />
+		<Folder Include="Views\ChatMessages\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Include="t4\TextTemplate.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>TextTemplate.tt</DependentUpon>
-	  </None>
-	  <None Include="wwwroot\vendor\jquery-smartwizard\.github\FUNDING.yml" />
-	  <None Include="wwwroot\vendor\jquery-smartwizard\.github\ISSUE_TEMPLATE\bug_report.md" />
-	  <None Include="wwwroot\vendor\jquery-smartwizard\.github\ISSUE_TEMPLATE\feature_request.md" />
-	  <None Include="wwwroot\vendor\jquery-smartwizard\.github\pull_request_template.md" />
+		<None Include="t4\TextTemplate.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>TextTemplate.tt</DependentUpon>
+		</None>
+		<None Include="wwwroot\vendor\jquery-smartwizard\.github\FUNDING.yml" />
+		<None Include="wwwroot\vendor\jquery-smartwizard\.github\ISSUE_TEMPLATE\bug_report.md" />
+		<None Include="wwwroot\vendor\jquery-smartwizard\.github\ISSUE_TEMPLATE\feature_request.md" />
+		<None Include="wwwroot\vendor\jquery-smartwizard\.github\pull_request_template.md" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="t4\TextTemplate.tt">
-	    <Generator>TextTemplatingFileGenerator</Generator>
-	    <LastGenOutput>TextTemplate.txt</LastGenOutput>
-	  </None>
-	  <None Update="t4\TextTemplate.txt">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>TextTemplate.tt</DependentUpon>
-	  </None>
+		<None Update="t4\TextTemplate.tt">
+			<Generator>TextTemplatingFileGenerator</Generator>
+			<LastGenOutput>TextTemplate.txt</LastGenOutput>
+		</None>
+		<None Update="t4\TextTemplate.txt">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>TextTemplate.tt</DependentUpon>
+		</None>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+		<Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
 	</ItemGroup>
 
 </Project>
