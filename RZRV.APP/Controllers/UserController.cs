@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RZRV.APP.Models;
 using RZRV.APP.Services;
-using RZRV.APP.ViewModel;
+using RZRV.APP.ViewModels;
 
 namespace RZRV.APP.Controllers
 {

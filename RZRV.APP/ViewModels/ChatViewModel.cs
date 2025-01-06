@@ -1,6 +1,6 @@
 ﻿using RZRV.APP.Models;
 
-namespace RZRV.APP.ViewModel
+namespace RZRV.APP.ViewModels
 {
     public class ChatViewModel
     {

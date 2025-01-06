@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RZRV.APP.Data;
 using RZRV.APP.Models;
-using RZRV.APP.ViewModel;
+using RZRV.APP.ViewModels;
 using System.Globalization;
 using System.Security.Claims;
 

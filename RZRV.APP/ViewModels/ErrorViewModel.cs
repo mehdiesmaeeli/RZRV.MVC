@@ -1,4 +1,4 @@
-namespace RZRV.APP.Models
+namespace RZRV.APP.ViewModels
 {
     public class ErrorViewModel
     {

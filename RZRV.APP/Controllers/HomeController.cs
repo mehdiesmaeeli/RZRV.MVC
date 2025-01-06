@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using RZRV.APP.Models;
+using RZRV.APP.ViewModels;
 
 namespace RZRV.APP.Controllers
 {

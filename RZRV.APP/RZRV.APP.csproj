@@ -7,15 +7,35 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Content Remove="Views\ChatMessages\index.cshtml" />
+	  <Compile Remove="Areas\Admin\Controllers\ChatMessagesController.cs" />
+	  <Compile Remove="Areas\Provider\Controllers\ChatMessagesController.cs" />
+	  <Compile Remove="Controllers\ChatMessagesController.cs" />
+	  <Compile Remove="Services\ChatMessagesService.cs" />
+	  <Compile Remove="Services\Interfaces\IChatMessagesService.cs" />
+	  <Compile Remove="ViewModels\ChatMessages\ChatMessagesViewModel.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Compile Include="t4\TextTemplate.txt">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>TextTemplate.tt</DependentUpon>
-		</Compile>
+	  <Content Remove="Areas\Admin\Views\ChatMessages\Create.cshtml" />
+	  <Content Remove="Areas\Admin\Views\ChatMessages\Delete.cshtml" />
+	  <Content Remove="Areas\Admin\Views\ChatMessages\Detail.cshtml" />
+	  <Content Remove="Areas\Admin\Views\ChatMessages\Edit.cshtml" />
+	  <Content Remove="Areas\Admin\Views\ChatMessages\Index.cshtml" />
+	  <Content Remove="Areas\Provider\Views\ChatMessages\Create.cshtml" />
+	  <Content Remove="Areas\Provider\Views\ChatMessages\Delete.cshtml" />
+	  <Content Remove="Areas\Provider\Views\ChatMessages\Detail.cshtml" />
+	  <Content Remove="Areas\Provider\Views\ChatMessages\Edit.cshtml" />
+	  <Content Remove="Areas\Provider\Views\ChatMessages\Index.cshtml" />
+	  <Content Remove="Areas\Store\Views\ChatMessages\Create.cshtml" />
+	  <Content Remove="Areas\Store\Views\ChatMessages\Delete.cshtml" />
+	  <Content Remove="Areas\Store\Views\ChatMessages\Detail.cshtml" />
+	  <Content Remove="Areas\Store\Views\ChatMessages\Edit.cshtml" />
+	  <Content Remove="Areas\Store\Views\ChatMessages\Index.cshtml" />
+	  <Content Remove="Views\ChatMessages\Create.cshtml" />
+	  <Content Remove="Views\ChatMessages\Delete.cshtml" />
+	  <Content Remove="Views\ChatMessages\Detail.cshtml" />
+	  <Content Remove="Views\ChatMessages\Edit.cshtml" />
+	  <Content Remove="Views\ChatMessages\Index.cshtml" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -38,16 +58,25 @@
 	<ItemGroup>
 		<Folder Include="Areas\Admin\Data\" />
 		<Folder Include="Areas\Admin\Models\" />
+		<Folder Include="Areas\Admin\Views\ChatMessages\" />
 		<Folder Include="Areas\Provider\Data\" />
 		<Folder Include="Areas\Provider\Models\" />
+		<Folder Include="Areas\Provider\Views\ChatMessages\" />
 		<Folder Include="Areas\Store\Data\" />
 		<Folder Include="Areas\Store\Models\" />
+		<Folder Include="Areas\Store\Views\ChatMessages\" />
 		<Folder Include="DB-Q\" />
 		<Folder Include="Migrations\" />
+		<Folder Include="ViewModels\ChatMessages\" />
 		<Folder Include="Views\ChatMessages\" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Include="t4\TextTemplate.cs">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>TextTemplate.tt</DependentUpon>
+		</None>
 		<None Include="wwwroot\vendor\jquery-smartwizard\.github\FUNDING.yml" />
 		<None Include="wwwroot\vendor\jquery-smartwizard\.github\ISSUE_TEMPLATE\bug_report.md" />
 		<None Include="wwwroot\vendor\jquery-smartwizard\.github\ISSUE_TEMPLATE\feature_request.md" />
@@ -55,14 +84,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="t4\TextTemplate.tt">
-			<Generator>TextTemplatingFileGenerator</Generator>
-			<LastGenOutput>TextTemplate.txt</LastGenOutput>
+		<None Update="t4\TextTemplate1.tt">
+		  <Generator>TextTemplatingFileGenerator</Generator>
+		  <LastGenOutput>TextTemplate1.txt</LastGenOutput>
 		</None>
-		<None Update="t4\TextTemplate.txt">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>TextTemplate.tt</DependentUpon>
+		<None Update="t4\TextTemplate1.txt">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>TextTemplate1.tt</DependentUpon>
 		</None>
 	</ItemGroup>
 

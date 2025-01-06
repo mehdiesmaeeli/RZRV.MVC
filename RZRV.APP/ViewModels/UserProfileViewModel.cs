@@ -1,4 +1,4 @@
-﻿namespace RZRV.APP.ViewModel
+﻿namespace RZRV.APP.ViewModels
 {
     public class UserProfileViewModel
     {
