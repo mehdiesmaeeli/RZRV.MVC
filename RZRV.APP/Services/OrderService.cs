@@ -1,35 +1,31 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using RZRV.APP.Data;
 using RZRV.APP.Models;
 using RZRV.APP.Services.Interfaces;
+using RZRV.APP.ViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace RZRV.APP.Services
 {
-    public class OrderService : GenericService<Order>, IOrderService
+    public class OrderService : GenericService<Order, OrderViewModel>, IOrderService
     {
         private readonly ICacheService _cacheService;
         private const string AllOrdersCacheKey = "AllOrders";
         private const string OrderCacheKeyPrefix = "Order_";
-        public OrderService(ApplicationDbContext context, ICacheService cacheService) : base(context)
+        private readonly IMapper _mapper;
+        public OrderService(ApplicationDbContext context, IMapper mapper, ICacheService cacheService) : base(context, mapper)
         {
             _cacheService = cacheService;
         }
 
-        public override async Task<IEnumerable<Order>> GetAllAsync()
+        public override async Task<IEnumerable<OrderViewModel>> GetAllAsync()
         {
-            return await _dbSet.Include(o => o.Customer).Include(o => o.OrderItems).ToListAsync();
+            var orders = await _dbSet.Include(o => o.Customer).Include(o => o.OrderItems).ToListAsync();
+            return _mapper.Map<IEnumerable<OrderViewModel>>(orders);
         }
 
-        public override async Task<Order> GetByIdAsync(int id)
-        {
-            return await _dbSet
-                .Include(o => o.Customer)
-                .Include(o => o.OrderItems)
-                .ThenInclude(oi => oi.Product)
-                .FirstOrDefaultAsync(o => o.Id == id);
-        }
 
         // TODO
     }

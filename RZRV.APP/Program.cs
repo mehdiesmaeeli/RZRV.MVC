@@ -12,6 +12,7 @@ using System.IO.Compression;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using RZRV.APP.Services.Interfaces;
+using RZRV.APP.Mappings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -116,6 +117,7 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 builder.Services.AddTransient<GlobalExceptionHandler>();
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
 // Add memory cache

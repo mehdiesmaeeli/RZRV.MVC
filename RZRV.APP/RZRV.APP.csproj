@@ -40,6 +40,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="AspNetCoreRateLimit" Version="5.0.0" />
+		<PackageReference Include="AutoMapper" Version="13.0.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.36" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.36" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.36" />
@@ -51,8 +52,6 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.18" />
-		<PackageReference Include="T4.FileManager.VisualStudio" Version="4.0.2" />
-		<PackageReference Include="T4IncludeTemplate" Version="1.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -72,27 +71,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Include="t4\TextTemplate.cs">
-		  <DesignTime>True</DesignTime>
-		  <AutoGen>True</AutoGen>
-		  <DependentUpon>TextTemplate.tt</DependentUpon>
-		</None>
 		<None Include="wwwroot\vendor\jquery-smartwizard\.github\FUNDING.yml" />
 		<None Include="wwwroot\vendor\jquery-smartwizard\.github\ISSUE_TEMPLATE\bug_report.md" />
 		<None Include="wwwroot\vendor\jquery-smartwizard\.github\ISSUE_TEMPLATE\feature_request.md" />
 		<None Include="wwwroot\vendor\jquery-smartwizard\.github\pull_request_template.md" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Update="t4\TextTemplate1.tt">
-		  <Generator>TextTemplatingFileGenerator</Generator>
-		  <LastGenOutput>TextTemplate1.txt</LastGenOutput>
-		</None>
-		<None Update="t4\TextTemplate1.txt">
-		  <DesignTime>True</DesignTime>
-		  <AutoGen>True</AutoGen>
-		  <DependentUpon>TextTemplate1.tt</DependentUpon>
-		</None>
 	</ItemGroup>
 
 	<ItemGroup>

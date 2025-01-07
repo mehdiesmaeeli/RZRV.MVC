@@ -26,7 +26,6 @@ namespace RZRV.APP.Controllers
                 Id = o.Id,
                 OrderDate = o.OrderDate,
                 CustomerId = o.CustomerId,
-                CustomerName = o.Customer.Name,
                 TotalAmount = o.TotalAmount,
                 Status = o.Status
             }).ToList();
@@ -48,14 +47,12 @@ namespace RZRV.APP.Controllers
                 Id = order.Id,
                 OrderDate = order.OrderDate,
                 CustomerId = order.CustomerId,
-                CustomerName = order.Customer.Name,
                 TotalAmount = order.TotalAmount,
                 Status = order.Status,
                 OrderItems = order.OrderItems.Select(oi => new OrderItemViewModel
                 {
                     Id = oi.Id,
                     ProductId = oi.ProductId,
-                    ProductName = oi.Product.Name,
                     Quantity = oi.Quantity,
                     Price = oi.Price
                 }).ToList()
@@ -77,21 +74,7 @@ namespace RZRV.APP.Controllers
         {
             if (ModelState.IsValid)
             {
-                var order = new Order
-                {
-                    OrderDate = viewModel.OrderDate,
-                    CustomerId = viewModel.CustomerId,
-                    TotalAmount = viewModel.TotalAmount,
-                    Status = viewModel.Status,
-                    OrderItems = viewModel.OrderItems.Select(oi => new OrderItem
-                    {
-                        ProductId = oi.ProductId,
-                        Quantity = oi.Quantity,
-                        Price = oi.Price
-                    }).ToList()
-                };
-
-                await _orderService.CreateAsync(order);
+                await _orderService.CreateAsync(viewModel);
                 return RedirectToAction(nameof(Index));
             }
             return View(viewModel);
@@ -105,26 +88,7 @@ namespace RZRV.APP.Controllers
             {
                 return NotFound();
             }
-
-            var viewModel = new OrderViewModel
-            {
-                Id = order.Id,
-                OrderDate = order.OrderDate,
-                CustomerId = order.CustomerId,
-                CustomerName = order.Customer.Name,
-                TotalAmount = order.TotalAmount,
-                Status = order.Status,
-                OrderItems = order.OrderItems.Select(oi => new OrderItemViewModel
-                {
-                    Id = oi.Id,
-                    ProductId = oi.ProductId,
-                    ProductName = oi.Product.Name,
-                    Quantity = oi.Quantity,
-                    Price = oi.Price
-                }).ToList()
-            };
-
-            return View(viewModel);
+            return View(order);
         }
 
         // POST: Orders/Edit/5
@@ -139,23 +103,7 @@ namespace RZRV.APP.Controllers
 
             if (ModelState.IsValid)
             {
-                var order = new Order
-                {
-                    Id = viewModel.Id,
-                    OrderDate = viewModel.OrderDate,
-                    CustomerId = viewModel.CustomerId,
-                    TotalAmount = viewModel.TotalAmount,
-                    Status = viewModel.Status,
-                    OrderItems = viewModel.OrderItems.Select(oi => new OrderItem
-                    {
-                        Id = oi.Id,
-                        ProductId = oi.ProductId,
-                        Quantity = oi.Quantity,
-                        Price = oi.Price
-                    }).ToList()
-                };
-
-                await _orderService.UpdateAsync(order);
+                await _orderService.UpdateAsync(viewModel);
                 return RedirectToAction(nameof(Index));
             }
             return View(viewModel);
@@ -169,18 +117,7 @@ namespace RZRV.APP.Controllers
             {
                 return NotFound();
             }
-
-            var viewModel = new OrderViewModel
-            {
-                Id = order.Id,
-                OrderDate = order.OrderDate,
-                CustomerId = order.CustomerId,
-                CustomerName = order.Customer.Name,
-                TotalAmount = order.TotalAmount,
-                Status = order.Status
-            };
-
-            return View(viewModel);
+            return View(order);
         }
 
         // POST: Orders/Delete/5

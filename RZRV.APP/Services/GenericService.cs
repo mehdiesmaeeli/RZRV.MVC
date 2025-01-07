@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using RZRV.APP.Data;
 using RZRV.APP.Services.Interfaces;
@@ -6,39 +7,46 @@ using System.Threading.Tasks;
 
 namespace RZRV.APP.Services
 {
-    public class GenericService<T> : IGenericService<T> where T : class
+    public class GenericService<TEntity, TViewModel> : IGenericService<TEntity, TViewModel> where TEntity : class
     {
         protected readonly ApplicationDbContext _context;
-        protected readonly DbSet<T> _dbSet;
+        protected readonly DbSet<TEntity> _dbSet;
+        private readonly IMapper _mapper;
 
-        public GenericService(ApplicationDbContext context)
+        public GenericService(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
-            _dbSet = context.Set<T>();
+            _mapper = mapper;
+            _dbSet = context.Set<TEntity>();
         }
 
-        public virtual async Task<IEnumerable<T>> GetAllAsync()
+
+        public virtual async Task<IEnumerable<TViewModel>> GetAllAsync()
         {
-            return await _dbSet.ToListAsync();
+            var entities = await _dbSet.ToListAsync();
+            return _mapper.Map<IEnumerable<TViewModel>>(entities);
         }
 
-        public virtual async Task<T> GetByIdAsync(int id)
+        public virtual async Task<TViewModel> GetByIdAsync(int id)
         {
-            return await _dbSet.FindAsync(id);
+            var entity = await _dbSet.FindAsync(id);
+            return _mapper.Map<TViewModel>(entity);
         }
 
-        public virtual async Task<T> CreateAsync(T entity)
+        public virtual async Task<TViewModel> CreateAsync(TViewModel viewModel)
         {
+            var entity = _mapper.Map<TEntity>(viewModel);
             await _dbSet.AddAsync(entity);
             await _context.SaveChangesAsync();
-            return entity;
+            return _mapper.Map<TViewModel>(entity);
         }
 
-        public virtual async Task<T> UpdateAsync(T entity)
+        public virtual async Task<TViewModel> UpdateAsync(TViewModel viewModel)
         {
-            _context.Entry(entity).State = EntityState.Modified;
+            var entity = _mapper.Map<TEntity>(viewModel);
+            _dbSet.Update(entity);
             await _context.SaveChangesAsync();
-            return entity;
+            return _mapper.Map<TViewModel>(entity);
         }
 
         public virtual async Task<bool> DeleteAsync(int id)
@@ -51,5 +59,6 @@ namespace RZRV.APP.Services
             await _context.SaveChangesAsync();
             return true;
         }
+
     }
 }
