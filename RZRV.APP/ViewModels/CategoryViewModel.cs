@@ -1,4 +1,6 @@
 
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using RZRV.APP.Models;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -12,7 +14,10 @@ namespace RZRV.APP.ViewModels
         public string Name { get; set; }
         [Display(Name = "Description")]
         public string Description { get; set; }
+
+
+        [ValidateNever]
         [Display(Name = "Products")]
-        public List<string> Products { get; set; }
+        public List<Product> Products { get; set; }
     }
 }

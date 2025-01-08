@@ -18,7 +18,6 @@
             <th>@Html.DisplayNameFor(model => model.Description)</th>
             <th>@Html.DisplayNameFor(model => model.Address)</th>
             <th>@Html.DisplayNameFor(model => model.ContactInfo)</th>
-            <th>@Html.DisplayNameFor(model => model.Products)</th>
             <th></th>
         </tr>
     </thead>
@@ -30,7 +29,6 @@
             <td>@Html.DisplayFor(modelItem => item.Description)</td>
             <td>@Html.DisplayFor(modelItem => item.Address)</td>
             <td>@Html.DisplayFor(modelItem => item.ContactInfo)</td>
-            <td>@Html.DisplayFor(modelItem => item.Products)</td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

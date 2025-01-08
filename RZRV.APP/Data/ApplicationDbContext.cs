@@ -7,14 +7,14 @@ namespace RZRV.APP.Data
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<ChatMessage> ChatMessages { get; set; }
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Customer> Customerss { get; set; }
+        public DbSet<Category> Category { get; set; }
+        public DbSet<Customer> Customer { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Reservation> Reservations { get; set; }
-        public DbSet<Service> Services { get; set; }
-        public DbSet<Models.ServiceProvider> ServiceProviders { get; set; }
-        public DbSet<Store> Stores { get; set; }
+        public DbSet<Product> Product { get; set; }
+        public DbSet<Reservation> Reservation { get; set; }
+        public DbSet<Service> Service { get; set; }
+        public DbSet<Models.ServiceProvider> ServiceProvider { get; set; }
+        public DbSet<Store> Store { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
