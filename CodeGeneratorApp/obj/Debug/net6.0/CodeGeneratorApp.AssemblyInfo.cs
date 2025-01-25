@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CodeGeneratorApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bc09add7c85153ca4d95172fc0de02ce518213bf")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aec65564cac9b87377d2f8ac0fe52604b2d1c724")]
 [assembly: System.Reflection.AssemblyProductAttribute("CodeGeneratorApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CodeGeneratorApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
